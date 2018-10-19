@@ -30,16 +30,18 @@ var bitacoras = [];
 var formulario = document.getElementById("bitacora");
 
 formulario.addEventListener("submit", (evt) => {
-    evt.preventDefault(); 
-    let bitacora = {
-        cant:cont,
-        fecha: formulario[1].value,
-        descripcion: formulario[2].value,
-        cantidad: formulario[3].value
-    } 
-    bitacoras.push(bitacora);
-    cont++;
-    mostrar();
+    evt.preventDefault();
+    if(validarTexto(formulario)){ 
+        let bitacora = {
+            cant:cont,
+            fecha: formulario[1].value,
+            descripcion: formulario[2].value,
+            cantidad: formulario[3].value
+        } 
+        bitacoras.push(bitacora);
+        cont++;
+        mostrar();
+    }
 }); 
 
 const crearElemento = (bitacora, tbody) =>{
@@ -81,3 +83,15 @@ const crearElemento = (bitacora, tbody) =>{
     agregar();
    } 
 
+var validarTexto = (formulario) => {
+    var flag = true;
+    for(let i=1;i<formulario.length;i++){
+        if(formulario[i].value == "" || formulario[i].value == null){
+            formulario[i].style.borderColor = "red";
+            flag = false
+        } else{
+            formulario[i].style.borderColor = "green";
+        }
+    }
+    return flag
+}
